@@ -1,9 +1,6 @@
-from email.policy import default
-from random import choices
-from tkinter.tix import AUTO
-from turtle import update
 from django.db import models
-from django.forms import CharField, DateTimeField, IntegerField
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 # Create your models here.
 class Pokemon( models.Model):
@@ -16,7 +13,10 @@ class Pokemon( models.Model):
 
     name=models.CharField(max_length=30)
     type=models.CharField(max_length=2,choices= PokemonType.choices)
-    hp=models.PositiveIntegerField
+    hp=models.PositiveIntegerField(validators=[
+            MaxValueValidator(350),
+            MinValueValidator(50)
+        ])
     active=models.BooleanField(default=True)
     name_fr=models.CharField(max_length=30, default="", blank=True)
     name_ar=models.CharField(max_length=30, default="", blank=True)
